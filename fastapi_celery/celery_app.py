@@ -9,10 +9,11 @@ celery_app = Celery(
     include=["fastapi_celery.tasks"]
 )
 
-# celery_app.conf.beat_schedule = {
-#     'my-periodic-task': {
-
-#     }
-# }
-# celery_app.conf.timezone = 'UTC'
+celery_app.conf.beat_schedule = {
+    'my-periodic-task': {
+        "task": "fastapi_celery.tasks.repetitive_task",
+        "schedule": 5.0,
+    }
+}
+celery_app.conf.timezone = 'UTC'
 # celery_app.autodiscover_tasks(packages=["fastapi_celery"])

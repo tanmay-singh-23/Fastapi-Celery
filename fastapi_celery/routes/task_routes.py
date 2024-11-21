@@ -11,7 +11,7 @@ async def add_task(x: int, y: int):
     else:
         print("@@@@@@@@@@@@@@@@@@@######")
         
-    print("RESULT: ", task.get())
+    # print("RESULT: ", task.get())
     
     return {"task_id": task.id}
 
