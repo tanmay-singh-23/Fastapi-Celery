@@ -13,3 +13,4 @@ def long_task(duration):
 @celery_app.task
 def repetitive_task():
     print("hello")
+    return "completed"

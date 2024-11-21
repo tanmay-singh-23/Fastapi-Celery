@@ -1,6 +1,5 @@
 from celery import Celery
-# from celery.schedules import crontab
-# from tasks import my_periodic_task
+from celery.schedules import crontab
 
 celery_app = Celery(
     "fastpi_celery_app",
@@ -12,7 +11,8 @@ celery_app = Celery(
 celery_app.conf.beat_schedule = {
     'my-periodic-task': {
         "task": "fastapi_celery.tasks.repetitive_task",
-        "schedule": 5.0,
+        # "schedule": crontab(minute="*/1"),
+        "schedule": 30,
     }
 }
 celery_app.conf.timezone = 'UTC'
