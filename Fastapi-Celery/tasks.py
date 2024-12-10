@@ -1,16 +1,10 @@
-from fastapi_celery.celery_app import celery_app
-import time
+from celery_app import celery_app
 
-@celery_app.task
-def add(x, y):
-    return x+y
+@celery_app.task(name="tasks.periodic_task")
+def periodic_task(message: str):
+    print(f"Executing task: {message}")
+    return "hello world!!!"
 
-@celery_app.task
-def long_task(duration):
-    time.sleep(duration)
-    return f"Task completed in {duration} seconds"
-
-@celery_app.task
-def repetitive_task():
-    print("hello")
-    return "completed"
+@celery_app.task(name="tasks.dynamic_task")
+def dynamic_task(message: str):
+    print(f"Executing task with message: {message}")
