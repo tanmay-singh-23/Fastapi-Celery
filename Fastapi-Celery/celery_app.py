@@ -1,5 +1,5 @@
 from celery import Celery
-
+from celery.schedules import crontab
 celery_app = Celery(
     "dynamic_scheduler",
     broker="redis://localhost:6379/0",  # Redis broker URL
@@ -21,7 +21,7 @@ celery_app.conf.update(
 celery_app.conf.beat_schedule = {
     "dynamic-task-default": {
         "task": "tasks.dynamic_task",
-        "schedule": 10,  # Default: 10 seconds
+        "schedule": crontab(minute='*/1'),  # Default: 10 seconds
         "args": ["Default task message"],
     },
 }

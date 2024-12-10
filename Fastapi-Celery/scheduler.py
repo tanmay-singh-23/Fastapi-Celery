@@ -25,6 +25,16 @@ def update_periodic_task(task_name: str, interval: int, args=None):
         entry = RedBeatSchedulerEntry.from_key(
             f"redbeat:{task_name}", app=celery_app
         )
+        # if interval == "hourly":
+        #     entry.schedule = crontab(minute=0)  # Top of every hour
+        # elif interval == "daily":
+        #     entry.schedule = crontab(hour=0, minute=0)  # Midnight every day
+        # elif interval == "weekly":
+        #     entry.schedule = crontab(hour=0, minute=0, day_of_week=0)  # Midnight every Sunday
+        # elif interval == "monthly":
+        #     entry.schedule = crontab(hour=0, minute=0, day_of_month=1)  # Midnight on the 1st of each month
+        # else:
+        #     raise ValueError(f"Unsupported interval type: {interval_type}")
         entry.schedule = schedules.schedule(run_every=interval)
         entry.args = args or []
         entry.save()
